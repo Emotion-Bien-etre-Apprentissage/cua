@@ -68,12 +68,24 @@ summary(d)
 
 rep.df <- d[9:28]
 clar.df <- d[29:48]
+rep.df <- d[9:48]
 
 describe(rep.df)
 describe(clar.df)
 
 boxplot(rep.df, las=2, notch = T)
 boxplot(clar.df, las=2, notch = T)
+
+# problème: r1a1 = j'explicite 
+# r1a2 = item 2 
+
+# item c1 => démontrer au lieu de témoigner
+# item c2 => évaluer ce que on on veut évaluer, éviter parasites, "barrières"
+# item c3 => (((dé)montrer )) attester au lieu de témoigner
+# item d2 => grace à mes observations des apprenants
+# items d5 => mon enseignement (en fonction de / en tenant compte de chaque apprenant) plutôt que gestes professionnels
+
+
 
 
 
