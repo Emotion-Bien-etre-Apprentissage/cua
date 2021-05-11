@@ -115,6 +115,55 @@ ex_1_likert = likert(d)
 
 # Figure 2
 
-plot(d, ordered = FALSE, group.order = names(ex_1[2:5]))
+plo0t(d, ordered = FALSE, group.order = names(ex_1[2:5]))
 
+##############################
+#          Code NBR          #
+#    reproduire code PGA     #
+##############################
 
+##############
+# variante 1 #
+##############
+
+# Préparer un dataframe
+d3 <- d %>%
+  select(starts_with("r1") & ends_with("1"))
+
+# Préparer les vecteurs
+listing <- names(d3)
+plot_list <- vector(mode = "list", length = 20)
+
+# Génération des 20 plots 1 à 1
+for (i in 1:20) {
+  p <- d3 %>% 
+    ggplot() +
+    aes(x=factor(0)) +
+    aes_string(y=listing[[i]]) +
+    geom_boxplot() +
+    stat_summary(fun = mean, geom = "point", size = 3, shape = 4, color = "red")
+  plot_list[[i]] <- p
+}
+
+##############
+# variante 2 #
+##############
+
+# je veux 20 boxplots côte à côte donc
+# x doit être "items" et y en a 20 à regrouper
+# y doit être "valeurs" et y
+
+# préparation du dataframe avec pivot en long
+d4 <- d %>% 
+  select(starts_with("r1") & ends_with("1")) %>% 
+  pivot_longer(cols=everything(), names_to ="prout", values_to = "valeurs")
+
+# variable en x en facteur
+d4$prout <- as_factor(d4$prout)
+
+# plot
+q <- d4 %>% 
+  ggplot() +
+  aes(prout, valeurs, group=prout) +
+  geom_boxplot() +
+  stat_summary(fun = mean, color = "red", aes(group = 1), geom = "line")
