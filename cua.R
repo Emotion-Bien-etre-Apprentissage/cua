@@ -164,6 +164,8 @@ d4$prout <- as_factor(d4$prout)
 # plot
 q <- d4 %>% 
   ggplot() +
-  aes(prout, valeurs, group=prout) +
+  aes(x=fct_rev(fct_reorder(prout,valeurs,.fun="median")), y=valeurs, group=prout) +
   geom_boxplot() +
-  stat_summary(fun = mean, color = "red", aes(group = 1), geom = "line")
+  stat_summary(fun = mean, color = "red", aes(group = 1), geom = "line") +
+  theme(axis.text.x = element_text(angle = 50))
+
